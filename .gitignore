@@ -1,0 +1,14 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Build output
+build/
+*.app
+*.dSYM
+
+# Swift / Xcode
+.build/
+DerivedData/
+*.xcuserstate
