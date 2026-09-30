@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AquaFlow — Native macOS Menu Bar Water Reminder &amp; Hydration Tracker</title>
+  <meta name="description" content="AquaFlow is a lightweight, native macOS menu bar application crafted with Swift and SwiftUI to track daily water intake, customize hydration reminders, and build healthy workday streaks." />
+  <meta property="og:title" content="AquaFlow — Native macOS Water Reminder" />
+  <meta property="og:description" content="Lightweight Swift &amp; SwiftUI macOS status bar hydration tracker with circular progress ring, one-click drink presets, smart countdown timers, and actionable notifications." />
+  <meta property="og:image" content="assets/screenshot-main.png" />
+  <meta property="og:type" content="website" />
+  <link rel="icon" type="image/png" href="assets/icon.png" />
+
+  <!-- Google Fonts: Plus Jakarta Sans & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="index.css" />
+</head>
+<body>
+  <!-- Sticky Navigation Header -->
+  <header class="site-header" id="site-header">
+    <div class="container nav-bar">
+      <a href="#top" class="brand-link" id="nav-brand-link">
+        <img src="assets/icon.png" alt="AquaFlow App Icon" class="brand-icon" width="34" height="34" />
+        <span>AquaFlow</span>
+        <span class="brand-version">v1.0.0 • macOS 12+</span>
+      </a>
+
+      <nav aria-label="Primary Navigation">
+        <ul class="nav-links">
+          <li><a href="#simulator" id="nav-link-simulator">Interactive Demo</a></li>
+          <li><a href="#screenshots" id="nav-link-screenshots">Screenshots</a></li>
+          <li><a href="#features" id="nav-link-features">Features</a></li>
+          <li><a href="#install" id="nav-link-install">Install &amp; Build</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <a href="https://github.com/windmaple/AquaFlow" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm" id="nav-btn-github">
+          GitHub
+        </a>
+        <a href="downloads/AquaFlow-macOS-arm64.zip" download="AquaFlow-macOS-arm64.zip" class="btn btn-primary btn-sm" id="nav-btn-download">
+          ⬇ Download for macOS
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="container">
+        <div class="hero-grid">
+          <div class="hero-copy">
+            <div class="hero-identity">
+              <img src="assets/icon.png" alt="AquaFlow macOS Application Icon" class="hero-app-icon" width="64" height="64" />
+              <div class="hero-meta-stack">
+                <span class="hero-kicker">Native Swift &amp; SwiftUI Menu Bar Utility</span>
+                <span class="hero-reqs">macOS Monterey 12.0+ • Apple Silicon (arm64) • Zero Third-Party Dependencies</span>
+              </div>
+            </div>
+
+            <h1>Effortless Hydration From Your macOS Menu Bar.</h1>
+
+            <p class="hero-subtitle">
+              <strong>AquaFlow</strong> lives quietly in your macOS status bar as an <code>LSUIElement</code> app—never cluttering your Dock or <code>⌘Tab</code> switcher. Log drinks in one click, watch your daily progress ring fill up, and receive actionable macOS notifications with custom audio chimes and automatic quiet hours.
+            </p>
+
+            <div class="hero-cta-row">
+              <a href="downloads/AquaFlow-macOS-arm64.zip" download="AquaFlow-macOS-arm64.zip" class="btn btn-primary btn-lg" id="hero-cta-download">
+                <span>⬇ Download AquaFlow for macOS</span>
+                <span class="btn-meta-tag">v1.0.0 • 2.0 MB .zip</span>
+              </a>
+              <a href="#simulator" class="btn btn-secondary btn-lg" id="hero-cta-simulator">
+                Try Interactive Popover
+              </a>
+              <a href="https://github.com/windmaple/AquaFlow" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-lg" id="hero-cta-github">
+                View Source on GitHub
+              </a>
+            </div>
+
+            <div class="hero-checksum-bar">
+              <span>Bundle ID: <code>com.aquaflow.waterreminder</code></span>
+              <span>Target: <code>arm64-apple-macosx12.0</code></span>
+              <span>Archive: <code>AquaFlow-macOS-arm64.zip</code></span>
+            </div>
+          </div>
+
+          <!-- Technical Specification Summary -->
+          <aside class="hero-spec-panel" aria-label="Technical Specifications">
+            <div class="spec-panel-header">
+              <span class="spec-panel-title">Native Runtime Profile</span>
+              <span class="spec-status-tag">SwiftUI + AppKit</span>
+            </div>
+            <div class="spec-list">
+              <div class="spec-row">
+                <span class="spec-label">Status Bar Residency</span>
+                <span class="spec-value">NSStatusItem • LSUIElement</span>
+              </div>
+              <div class="spec-row">
+                <span class="spec-label">Popover Vibrancy Material</span>
+                <span class="spec-value">NSVisualEffectView (.popover)</span>
+              </div>
+              <div class="spec-row">
+                <span class="spec-label">Menu Bar Display Modes</span>
+                <span class="spec-value">💧 • 💧 75% • 💧 1500ml</span>
+              </div>
+              <div class="spec-row">
+                <span class="spec-label">Quick Log Presets</span>
+                <span class="spec-value">150ml • 250ml • 350ml • 500ml</span>
+              </div>
+              <div class="spec-row">
+                <span class="spec-label">Actionable Alerts</span>
+                <span class="spec-value">UNUserNotificationCenter</span>
+              </div>
+              <div class="spec-row">
+                <span class="spec-label">System Alert Chimes</span>
+                <span class="spec-value">Glass, Ping, Tink, Submarine +3</span>
+              </div>
+              <div class="spec-row">
+                <span class="spec-label">Local Persistence</span>
+                <span class="spec-value">UserDefaults + Midnight Rollover</span>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive macOS Menu Bar & NSPopover Simulator Section -->
+    <section class="section section-alt" id="simulator">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-eyebrow">Interactive Preview</span>
+          <h2 class="section-title">Test AquaFlow Right in Your Browser</h2>
+          <p class="section-desc">
+            Interact with an authentic replica of AquaFlow’s <code>NSPopover</code>, menu bar status item, right-click <code>NSMenu</code>, and actionable macOS notification banner—or calculate your personalized hydration goal on the right.
+          </p>
+        </div>
+
+        <div class="simulator-layout">
+          <!-- Left: Simulated macOS Desktop + Menu Bar + Popover -->
+          <div class="macos-desktop-stage" id="macos-desktop-stage">
+            <!-- Top macOS Menu Bar -->
+            <div class="macos-menubar">
+              <div class="menubar-left">
+                <span class="menubar-apple" aria-hidden="true"></span>
+                <span>Finder</span>
+                <span class="menubar-item-muted">File</span>
+                <span class="menubar-item-muted">Edit</span>
+                <span class="menubar-item-muted">View</span>
+              </div>
+              <div class="menubar-right">
+                <button
+                  type="button"
+                  class="status-item-pill"
+                  id="sim-status-item"
+                  title="Left-click to toggle popover • Right-click for quick context menu"
+                >
+                  <span id="sim-status-icon">💧</span>
+                  <span id="sim-status-text">75%</span>
+                </button>
+                <span class="menubar-item-muted" aria-hidden="true">􀙇</span>
+                <span class="menubar-item-muted" aria-hidden="true">􀛨</span>
+                <span id="sim-menubar-clock">11:15 AM</span>
+              </div>
+            </div>
+
+            <!-- Simulated Right-Click NSMenu Dropdown -->
+            <div class="nsmenu-dropdown hidden" id="sim-nsmenu" role="menu" aria-label="AquaFlow Right-Click Menu">
+              <div class="nsmenu-header">AquaFlow - Hydration Tracker</div>
+              <div class="nsmenu-info" id="nsmenu-countdown-label">Next reminder: 32:18</div>
+              <div class="nsmenu-info" id="nsmenu-intake-label">Today: 1500/2000 ml (75%)</div>
+              <div class="nsmenu-sep"></div>
+              <button type="button" class="nsmenu-btn" id="nsmenu-drink-250">
+                <span>💧 Drink Glass (250 ml)</span>
+              </button>
+              <button type="button" class="nsmenu-btn" id="nsmenu-drink-500">
+                <span>🥛 Drink Bottle (500 ml)</span>
+              </button>
+              <button type="button" class="nsmenu-btn" id="nsmenu-snooze-10">
+                <span>⏳ Snooze 10 Minutes</span>
+              </button>
+              <div class="nsmenu-sep"></div>
+              <button type="button" class="nsmenu-btn" id="nsmenu-open-popover">
+                <span>Open AquaFlow...</span>
+                <span class="nsmenu-shortcut">⌘O</span>
+              </button>
+            </div>
+
+            <!-- Simulated macOS Notification Banner -->
+            <div class="macos-notification-banner hidden" id="sim-notif-banner" role="alert">
+              <div class="notif-top">
+                <img src="assets/icon.png" alt="AquaFlow Icon" class="notif-icon" width="36" height="36" />
+                <div class="notif-body-wrap">
+                  <div class="notif-title-row">
+                    <span class="notif-title">💧 Time to Drink Water!</span>
+                    <span class="notif-time">now</span>
+                  </div>
+                  <p class="notif-text" id="sim-notif-body">
+                    Stay refreshed! You're at 1500/2000ml (75%). 500ml left for today.
+                  </p>
+                </div>
+              </div>
+              <div class="notif-actions">
+                <button type="button" class="notif-action-btn" id="notif-btn-250">💧 Drink 250ml</button>
+                <button type="button" class="notif-action-btn" id="notif-btn-500">🥛 Drink 500ml</button>
+                <button type="button" class="notif-action-btn" id="notif-btn-snooze">⏳ Snooze 10m</button>
+              </div>
+            </div>
+
+            <!-- NSPopover Replica -->
+            <div class="nspopover-wrapper" id="sim-popover-wrapper">
+              <div class="nspopover-arrow" aria-hidden="true"></div>
+              <div class="nspopover-window" id="sim-popover-window">
+                <!-- MAIN POPOVER VIEW -->
+                <div id="popover-main-pane">
+                  <div class="popover-header">
+                    <div class="popover-brand">
+                      <img src="assets/icon.png" alt="AquaFlow" class="popover-brand-icon" width="22" height="22" />
+                      <span>AquaFlow</span>
+                    </div>
+                    <div class="popover-header-right">
+                      <span class="streak-pill" id="sim-streak-badge">🔥 7d streak</span>
+                      <button type="button" class="icon-gear-btn" id="btn-open-settings" title="Open Preferences" aria-label="Open Preferences">
+                        ⚙️
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- Circular Progress Ring -->
+                  <div class="ring-container" id="sim-ring-container">
+                    <svg class="progress-ring-svg" viewBox="0 0 168 168" aria-hidden="true">
+                      <defs>
+                        <linearGradient id="aquaRingGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                          <stop offset="0%" stop-color="#1ac0ff" />
+                          <stop offset="100%" stop-color="#0d73f2" />
+                        </linearGradient>
+                      </defs>
+                      <circle class="ring-track" cx="84" cy="84" r="68" />
+                      <circle
+                        class="ring-fill"
+                        id="sim-ring-progress"
+                        cx="84"
+                        cy="84"
+                        r="68"
+                        stroke-dasharray="427.26"
+                        stroke-dashoffset="106.81"
+                      />
+                    </svg>
+                    <div class="ring-center-content">
+                      <div class="ring-intake-row">
+                        <span class="ring-intake-value" id="sim-current-intake">1500</span>
+                        <span class="ring-intake-unit">ml</span>
+                      </div>
+                      <div class="ring-goal-text" id="sim-goal-label">of 2000 ml goal</div>
+                      <div class="ring-percent-badge" id="sim-percent-badge">75%</div>
+                    </div>
+                  </div>
+
+                  <!-- Encouragement Message -->
+                  <p class="popover-status-msg" id="sim-status-message">
+                    Almost there! Keep up the great hydration!
+                  </p>
+
+                  <!-- Countdown Timer Bar -->
+                  <div class="popover-timer-card">
+                    <div class="timer-left">
+                      <span class="timer-icon" id="sim-timer-icon">⏱</span>
+                      <div>
+                        <div class="timer-readout" id="sim-timer-readout">32:18</div>
+                        <div class="timer-caption" id="sim-timer-caption">Next reminder</div>
+                      </div>
+                    </div>
+                    <div class="timer-actions">
+                      <button type="button" class="popover-mini-btn" id="btn-snooze-10" title="Snooze reminder for 10 minutes">+10m</button>
+                      <button type="button" class="popover-mini-btn" id="btn-pause-toggle" title="Pause or resume reminders">⏸</button>
+                    </div>
+                  </div>
+
+                  <!-- Quick Log Drink Buttons -->
+                  <div class="preset-grid">
+                    <button type="button" class="preset-drink-btn" id="btn-drink-150" data-amount="150">
+                      <span class="preset-icon">☕️</span>
+                      <span class="preset-label">150ml</span>
+                    </button>
+                    <button type="button" class="preset-drink-btn" id="btn-drink-250" data-amount="250">
+                      <span class="preset-icon">🥛</span>
+                      <span class="preset-label">250ml</span>
+                    </button>
+                    <button type="button" class="preset-drink-btn" id="btn-drink-350" data-amount="350">
+                      <span class="preset-icon">🫖</span>
+                      <span class="preset-label">350ml</span>
+                    </button>
+                    <button type="button" class="preset-drink-btn" id="btn-drink-500" data-amount="500">
+                      <span class="preset-icon">🧴</span>
+                      <span class="preset-label">500ml</span>
+                    </button>
+                  </div>
+
+                  <!-- Custom Amount & Undo -->
+                  <div class="popover-subactions">
+                    <div id="custom-input-trigger-row" style="display: flex; width: 100%; justify-content: space-between; align-items: center;">
+                      <button type="button" class="text-link-btn" id="btn-show-custom">＋ Custom amount</button>
+                      <button type="button" class="text-link-btn" id="btn-undo-last">↩ Undo +250ml</button>
+                    </div>
+                    <div class="custom-input-inline hidden" id="custom-input-form">
+                      <input type="number" class="custom-ml-input" id="input-custom-ml" placeholder="ml" min="10" max="2000" step="10" value="200" aria-label="Custom milliliters" />
+                      <button type="button" class="popover-mini-btn" id="btn-add-custom">Add</button>
+                      <button type="button" class="popover-mini-btn" id="btn-cancel-custom">Cancel</button>
+                    </div>
+                  </div>
+
+                  <div class="popover-divider"></div>
+
+                  <!-- Bottom History Toggle & Test Button -->
+                  <div class="popover-footer-bar">
+                    <button type="button" class="text-link-btn" id="btn-toggle-history">
+                      ▴ Hide Today's Logs (<span id="sim-log-count">3</span>)
+                    </button>
+                    <button type="button" class="text-link-btn" id="btn-test-notif" title="Send a test macOS notification banner">
+                      🔔 Test
+                    </button>
+                  </div>
+
+                  <!-- Today's Logs List -->
+                  <div class="history-drawer" id="sim-history-list"></div>
+                </div>
+
+                <!-- PREFERENCES (SETTINGS) PANE -->
+                <div class="popover-settings-view hidden" id="popover-settings-pane">
+                  <div class="popover-header">
+                    <button type="button" class="text-link-btn" id="btn-close-settings">‹ Back</button>
+                    <span style="font-weight: 800; font-size: 0.9rem;">Preferences</span>
+                    <span style="opacity: 0; font-size: 0.75rem;">Back</span>
+                  </div>
+
+                  <div class="settings-card">
+                    <div class="settings-card-title">
+                      <span>🎯 Daily Intake Goal</span>
+                      <span id="settings-goal-readout" style="font-family: var(--font-mono);">2000 ml</span>
+                    </div>
+                    <input type="range" class="range-slider" id="settings-goal-slider" min="1000" max="4000" step="100" value="2000" aria-label="Daily Intake Goal Slider" />
+                    <div class="goal-preset-pills">
+                      <button type="button" class="goal-preset-btn" data-goal="1500" id="btn-goal-1500">1500ml</button>
+                      <button type="button" class="goal-preset-btn active" data-goal="2000" id="btn-goal-2000">2000ml</button>
+                      <button type="button" class="goal-preset-btn" data-goal="2500" id="btn-goal-2500">2500ml</button>
+                      <button type="button" class="goal-preset-btn" data-goal="3000" id="btn-goal-3000">3000ml</button>
+                    </div>
+                  </div>
+
+                  <div class="settings-card">
+                    <div class="settings-card-title">
+                      <span>🕒 Reminder Interval</span>
+                    </div>
+                    <div class="settings-row">
+                      <label for="settings-interval-select">Remind every</label>
+                      <select class="settings-select" id="settings-interval-select">
+                        <option value="15">15 minutes</option>
+                        <option value="30">30 minutes</option>
+                        <option value="45" selected>45 minutes</option>
+                        <option value="60">60 minutes (1 hr)</option>
+                        <option value="90">90 minutes (1.5 hr)</option>
+                        <option value="120">120 minutes (2 hr)</option>
+                      </select>
+                    </div>
+                    <div class="settings-row">
+                      <label>
+                        <input type="checkbox" id="settings-reset-on-drink" checked />
+                        Reset countdown when I log a drink
+                      </label>
+                    </div>
+                  </div>
+
+                  <div class="settings-card">
+                    <div class="settings-card-title">
+                      <span>🔊 Sound &amp; Alerts</span>
+                    </div>
+                    <div class="settings-row">
+                      <label for="settings-sound-select">Alert Chime</label>
+                      <div style="display: flex; align-items: center; gap: 6px;">
+                        <select class="settings-select" id="settings-sound-select">
+                          <option value="Glass" selected>Glass</option>
+                          <option value="Ping">Ping</option>
+                          <option value="Tink">Tink</option>
+                          <option value="Submarine">Submarine</option>
+                          <option value="Hero">Hero</option>
+                          <option value="Purr">Purr</option>
+                          <option value="Pop">Pop</option>
+                        </select>
+                        <button type="button" class="popover-mini-btn" id="btn-preview-sound" title="Preview chime sound">▶</button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="settings-card">
+                    <div class="settings-card-title">
+                      <span>🖥 Menu Bar Display</span>
+                    </div>
+                    <div class="settings-row" style="justify-content: flex-start; gap: 12px;">
+                      <label><input type="radio" name="menubar-mode" value="iconOnly" id="mode-icon-only" /> Icon Only</label>
+                      <label><input type="radio" name="menubar-mode" value="iconAndPercent" id="mode-icon-pct" checked /> Icon + %</label>
+                      <label><input type="radio" name="menubar-mode" value="iconAndAmount" id="mode-icon-ml" /> Icon + ml</label>
+                    </div>
+                  </div>
+
+                  <div class="settings-row" style="padding: 2px 4px;">
+                    <button type="button" class="popover-mini-btn" id="btn-settings-test-notif">Test Notification</button>
+                    <button type="button" class="popover-mini-btn" id="btn-settings-reset-today" style="color: var(--danger-red);">Reset Today</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Column: Simulator Controls & Daily Hydration Calculator -->
+          <div class="simulator-sidebar">
+            <div class="interactive-panel">
+              <h3 class="panel-heading">Explore macOS Interactions</h3>
+              <p class="panel-subtext">
+                Trigger AquaFlow’s native status bar menus, notification banners, and preferences directly inside the stage on the left.
+              </p>
+              <div class="sim-action-grid">
+                <button type="button" class="btn btn-secondary btn-sm" id="deck-btn-toggle-view">
+                  ⚙️ Switch Main / Preferences
+                </button>
+                <button type="button" class="btn btn-secondary btn-sm" id="deck-btn-context-menu">
+                  🖱 Toggle Right-Click Menu
+                </button>
+                <button type="button" class="btn btn-secondary btn-sm" id="deck-btn-trigger-notif">
+                  🔔 Trigger Alert Banner
+                </button>
+                <button type="button" class="btn btn-secondary btn-sm" id="deck-btn-chime">
+                  🎵 Play macOS Chime
+                </button>
+              </div>
+            </div>
+
+            <!-- Interactive Daily Hydration Calculator -->
+            <div class="interactive-panel">
+              <h3 class="panel-heading">Personal Daily Goal Calculator</h3>
+              <p class="panel-subtext">
+                Estimate your optimal daily water intake based on body weight, activity duration, and daily coffee or tea consumption, then sync it to the simulator.
+              </p>
+
+              <div class="calc-form">
+                <div class="calc-field">
+                  <div class="calc-label-row">
+                    <label for="calc-weight">Body Weight</label>
+                    <span class="calc-val-badge" id="calc-weight-val">68 kg</span>
+                  </div>
+                  <input type="range" class="range-slider" id="calc-weight" min="45" max="120" step="1" value="68" />
+                </div>
+
+                <div class="calc-field">
+                  <div class="calc-label-row">
+                    <label for="calc-exercise">Daily Exercise / Active Minutes</label>
+                    <span class="calc-val-badge" id="calc-exercise-val">30 min</span>
+                  </div>
+                  <input type="range" class="range-slider" id="calc-exercise" min="0" max="120" step="15" value="30" />
+                </div>
+
+                <div class="calc-field">
+                  <div class="calc-label-row">
+                    <label for="calc-coffee">Coffee / Caffeinated Drinks</label>
+                    <span class="calc-val-badge" id="calc-coffee-val">2 cups</span>
+                  </div>
+                  <input type="range" class="range-slider" id="calc-coffee" min="0" max="6" step="1" value="2" />
+                </div>
+
+                <div class="calc-result-box">
+                  <div>
+                    <div class="calc-result-number" id="calc-recommended-ml">2600 ml</div>
+                    <div class="calc-result-meta" id="calc-recommended-cups">≈ 10.4 glasses (250ml each)</div>
+                  </div>
+                  <button type="button" class="btn btn-primary btn-sm" id="btn-apply-calculated-goal">
+                    Apply to Simulator
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Real macOS Screenshots Section -->
+    <section class="section" id="screenshots">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-eyebrow">Native Interface</span>
+          <h2 class="section-title">Crafted with SwiftUI &amp; macOS Vibrancy</h2>
+          <p class="section-desc">
+            AquaFlow uses native <code>NSStatusItem</code>, <code>NSPopover</code>, and <code>NSVisualEffectView(material: .popover)</code> so it blends seamlessly with your macOS desktop wallpaper.
+          </p>
+        </div>
+
+        <div class="showcase-card">
+          <div class="showcase-toolbar">
+            <div class="segmented-control" role="tablist" aria-label="Screenshot Filter">
+              <button type="button" class="segment-btn active" id="tab-shot-all" data-filter="all">
+                Side-by-Side View
+              </button>
+              <button type="button" class="segment-btn" id="tab-shot-main" data-filter="main">
+                Main Popover (ContentView)
+              </button>
+              <button type="button" class="segment-btn" id="tab-shot-settings" data-filter="settings">
+                Preferences (SettingsView)
+              </button>
+            </div>
+            <a href="downloads/AquaFlow-macOS-arm64.zip" download="AquaFlow-macOS-arm64.zip" class="btn btn-primary btn-sm" id="showcase-btn-download">
+              ⬇ Download AquaFlow.app (2.0 MB)
+            </a>
+          </div>
+
+          <div class="showcase-grid">
+            <figure class="screenshot-figure" id="fig-shot-main">
+              <img
+                src="assets/screenshot-main.png"
+                alt="AquaFlow Main Popover showing 1500ml of 2000ml daily hydration goal and 7d streak"
+                class="screenshot-img"
+                width="820"
+                height="980"
+              />
+              <figcaption class="screenshot-caption">
+                Main Popover — Circular gradient gauge, countdown timer, 4 drink presets, and daily log drawer
+              </figcaption>
+            </figure>
+
+            <figure class="screenshot-figure" id="fig-shot-settings">
+              <img
+                src="assets/screenshot-settings.png"
+                alt="AquaFlow Preferences window showing daily goal slider, reminder interval, alert chime, and quiet hours"
+                class="screenshot-img"
+                width="820"
+                height="980"
+              />
+              <figcaption class="screenshot-caption">
+                Preferences — Daily intake goal presets, reminder interval, audio chime preview, and quiet hours
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Core Features Section -->
+    <section class="section section-alt" id="features">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-eyebrow">Engineered for Focus</span>
+          <h2 class="section-title">Everything You Need to Stay Hydrated—Nothing You Don’t</h2>
+          <p class="section-desc">
+            Designed specifically for developers, designers, and knowledge workers who spend hours at their Mac and want gentle, zero-friction hydration tracking.
+          </p>
+        </div>
+
+        <div class="feature-grid">
+          <article class="feature-item">
+            <span class="feature-tag">01 • Menu Bar Resident</span>
+            <h3 class="feature-title">True LSUIElement Status Item</h3>
+            <p class="feature-desc">
+              Runs strictly in your macOS status bar without occupying Dock space. Choose between <code>💧</code> Icon Only, <code>💧 65%</code> Percentage, or <code>💧 1250ml</code> Live Intake—automatically switching to <code>✓</code> when your daily goal is met.
+            </p>
+          </article>
+
+          <article class="feature-item">
+            <span class="feature-tag">02 • Frictionless Logging</span>
+            <h3 class="feature-title">One-Click Drink Presets &amp; Undo</h3>
+            <p class="feature-desc">
+              Log common vessel sizes immediately: <strong>150 ml</strong> (Cup), <strong>250 ml</strong> (Glass), <strong>350 ml</strong> (Mug), or <strong>500 ml</strong> (Bottle). Enter custom volumes anytime or tap <strong>Undo</strong> to revert accidental clicks.
+            </p>
+          </article>
+
+          <article class="feature-item">
+            <span class="feature-tag">03 • Smart Countdown Timer</span>
+            <h3 class="feature-title">Auto-Reset &amp; +10m Snooze</h3>
+            <p class="feature-desc">
+              Configure reminders every 15, 30, 45, 60, 90, or 120 minutes. Optionally reset the countdown automatically whenever you log a drink, snooze for 10 minutes, or pause for 1 hour.
+            </p>
+          </article>
+
+          <article class="feature-item">
+            <span class="feature-tag">04 • Actionable Notifications</span>
+            <h3 class="feature-title">Log Directly From the Banner</h3>
+            <p class="feature-desc">
+              Built on <code>UNUserNotificationCenter</code> with custom notification actions (<code>💧 Drink 250ml</code>, <code>🥛 Drink 500ml</code>, <code>⏳ Snooze 10m</code>) and 7 previewable macOS alert chimes including <em>Glass</em>, <em>Submarine</em>, and <em>Hero</em>.
+            </p>
+          </article>
+
+          <article class="feature-item">
+            <span class="feature-tag">05 • Quiet Hours &amp; Streaks</span>
+            <h3 class="feature-title">Automatic Rest Muting &amp; Rollover</h3>
+            <p class="feature-desc">
+              Silence notifications during rest hours (default <code>22:00</code> to <code>08:00</code>, supporting overnight spans). At midnight, AquaFlow archives your daily intake and updates your multi-day hydration streak.
+            </p>
+          </article>
+
+          <article class="feature-item">
+            <span class="feature-tag">06 • Instant Context Menu</span>
+            <h3 class="feature-title">Right-Click NSMenu Shortcuts</h3>
+            <p class="feature-desc">
+              Don’t even need to open the popover? Right-click the menu bar droplet to inspect your countdown and daily total, log a 250 ml glass or 500 ml bottle, or snooze for 10 minutes in a single gesture.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Installation, Build Scripts & Architecture Section -->
+    <section class="section" id="install">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-eyebrow">Open Source &amp; Transparent</span>
+          <h2 class="section-title">Quick Install or Compile From Swift Source</h2>
+          <p class="section-desc">
+            Download the pre-compiled, ad-hoc signed <code>AquaFlow.app</code> bundle for Apple Silicon, or build it yourself in seconds using <code>swiftc</code> with zero external packages.
+          </p>
+        </div>
+
+        <div class="install-grid">
+          <!-- Interactive Terminal Card -->
+          <div class="terminal-card">
+            <div class="terminal-header">
+              <div class="terminal-dots" aria-hidden="true">
+                <span class="t-dot t-dot-red"></span>
+                <span class="t-dot t-dot-yellow"></span>
+                <span class="t-dot t-dot-green"></span>
+              </div>
+              <div class="terminal-tabs" role="tablist" aria-label="Installation Method">
+                <button type="button" class="term-tab-btn active" id="term-tab-install" data-tab="install">
+                  1. Install App (.zip)
+                </button>
+                <button type="button" class="term-tab-btn" id="term-tab-source" data-tab="source">
+                  2. Build from Source
+                </button>
+                <button type="button" class="term-tab-btn" id="term-tab-login" data-tab="login">
+                  3. Launch at Login
+                </button>
+              </div>
+            </div>
+
+            <pre class="terminal-body" id="terminal-code-display"># Unzip the downloaded bundle and move to /Applications
+unzip AquaFlow-macOS-arm64.zip
+cp -R AquaFlow.app /Applications/
+
+# Clear quarantine attribute (if needed) &amp; launch AquaFlow
+xattr -cr /Applications/AquaFlow.app
+open /Applications/AquaFlow.app</pre>
+
+            <div class="terminal-toolbar">
+              <span id="terminal-caption">Installs standalone AquaFlow.app to /Applications</span>
+              <button type="button" class="copy-cmd-btn" id="btn-copy-terminal">
+                Copy Commands
+              </button>
+            </div>
+          </div>
+
+          <!-- Source Architecture Breakdown -->
+          <div class="source-tree-card">
+            <h3 class="panel-heading">Swift Codebase Architecture</h3>
+            <p class="panel-subtext" style="margin-bottom: 8px;">
+              6 clean Swift modules compiled directly via <code>swiftc -O -parse-as-library</code> against native <code>Cocoa</code>, <code>SwiftUI</code>, and <code>UserNotifications</code> frameworks.
+            </p>
+
+            <ul class="tree-list">
+              <li class="tree-row">
+                <span class="tree-file">Sources/main.swift</span>
+                <span class="tree-desc">@main entry point &amp; NSApplication lifecycle</span>
+              </li>
+              <li class="tree-row">
+                <span class="tree-file">Sources/AppDelegate.swift</span>
+                <span class="tree-desc">NSStatusItem, NSPopover &amp; right-click NSMenu</span>
+              </li>
+              <li class="tree-row">
+                <span class="tree-file">Sources/WaterStore.swift</span>
+                <span class="tree-desc">Hydration state, 1s timer, streaks &amp; UserDefaults</span>
+              </li>
+              <li class="tree-row">
+                <span class="tree-file">Sources/ContentView.swift</span>
+                <span class="tree-desc">SwiftUI circular ring, presets &amp; history drawer</span>
+              </li>
+              <li class="tree-row">
+                <span class="tree-file">Sources/SettingsView.swift</span>
+                <span class="tree-desc">Goal slider, interval picker, chimes &amp; quiet hours</span>
+              </li>
+              <li class="tree-row">
+                <span class="tree-file">Sources/NotificationManager.swift</span>
+                <span class="tree-desc">UNUserNotificationCenter &amp; AppleScript fallback</span>
+              </li>
+              <li class="tree-row">
+                <span class="tree-file">Resources/Info.plist</span>
+                <span class="tree-desc">LSUIElement status bar config &amp; bundle metadata</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bottom Download CTA Banner -->
+    <section class="section" style="padding-top: 16px;">
+      <div class="container">
+        <div class="download-cta-banner">
+          <div class="download-cta-copy">
+            <h2>Ready to Build Your Hydration Streak on macOS?</h2>
+            <p>
+              Download the standalone <strong>AquaFlow.app</strong> bundle (v1.0.0, 2.0 MB) for Apple Silicon Macs running macOS 12.0 Monterey or later. Free and open source.
+            </p>
+          </div>
+          <div class="download-cta-actions">
+            <a href="downloads/AquaFlow-macOS-arm64.zip" download="AquaFlow-macOS-arm64.zip" class="btn btn-primary btn-lg" id="footer-cta-download">
+              ⬇ Download for macOS (2.0 MB)
+            </a>
+            <a href="https://github.com/windmaple/AquaFlow" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-lg" id="footer-cta-github">
+              GitHub Repository
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>
+        <strong>AquaFlow</strong> — Native macOS Water Reminder crafted with Swift &amp; SwiftUI.
+      </div>
+      <ul class="footer-links">
+        <li><a href="downloads/AquaFlow-macOS-arm64.zip" download="AquaFlow-macOS-arm64.zip" id="footer-link-download">Download .zip</a></li>
+        <li><a href="#simulator" id="footer-link-simulator">Interactive Demo</a></li>
+        <li><a href="#install" id="footer-link-install">Build Instructions</a></li>
+        <li><a href="https://github.com/windmaple/AquaFlow" target="_blank" rel="noopener noreferrer" id="footer-link-github">GitHub</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
