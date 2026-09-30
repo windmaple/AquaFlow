@@ -1,6 +1,19 @@
-# 💧 AquaFlow - Native macOS Water Reminder
+<p align="center">
+  <img src="assets/icon.png" width="128" height="128" alt="AquaFlow Icon">
+</p>
+
+<h1 align="center">💧 AquaFlow — Native macOS Water Reminder</h1>
 
 **AquaFlow** is a lightweight, modern macOS menu bar application crafted with Swift and SwiftUI to help you maintain healthy hydration throughout your workday.
+
+---
+
+## 📸 Screenshots
+
+<p align="center">
+  <img src="assets/screenshot-main.png" width="48%" alt="AquaFlow Main Popover">
+  <img src="assets/screenshot-settings.png" width="48%" alt="AquaFlow Preferences">
+</p>
 
 ---
 
